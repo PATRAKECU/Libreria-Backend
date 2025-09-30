@@ -22,7 +22,9 @@ public class CafeController {
 
     @GetMapping
     public List<Cafe> getAllCafes() {
-        return service.findAllByTipo(Cafe.class);
+        return service.findAllByTipo(Cafe.class).stream()
+                .filter(cafe -> cafe.getDemo() == null || Boolean.FALSE.equals(cafe.getDemo()))
+                .toList();
     }
 
     @GetMapping("/{id}")

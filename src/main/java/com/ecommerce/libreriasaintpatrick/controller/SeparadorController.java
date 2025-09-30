@@ -1,5 +1,6 @@
 package com.ecommerce.libreriasaintpatrick.controller;
 
+import com.ecommerce.libreriasaintpatrick.model.Libro;
 import com.ecommerce.libreriasaintpatrick.model.Separador;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class SeparadorController {
 
     @GetMapping
     public List<Separador> getAllSeparadores() {
-        return service.findAllByTipo(Separador.class);
+        return service.findAllByTipo(Separador.class).stream()
+                .filter(separador -> separador.getDemo() == null || Boolean.FALSE.equals(separador.getDemo()))
+                .toList();
     }
 
     @GetMapping("/{id}")

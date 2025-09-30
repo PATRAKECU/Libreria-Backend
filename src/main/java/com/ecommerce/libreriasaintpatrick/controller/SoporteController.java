@@ -1,5 +1,6 @@
 package com.ecommerce.libreriasaintpatrick.controller;
 
+import com.ecommerce.libreriasaintpatrick.model.Separador;
 import com.ecommerce.libreriasaintpatrick.model.Soporte;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class SoporteController {
 
     @GetMapping
     public List<Soporte> getAllSoportes() {
-        return service.findAllByTipo(Soporte.class);
+        return service.findAllByTipo(Soporte.class).stream()
+                .filter(soporte -> soporte.getDemo() == null || Boolean.FALSE.equals(soporte.getDemo()))
+                .toList();
     }
 
     @GetMapping("/{id}")

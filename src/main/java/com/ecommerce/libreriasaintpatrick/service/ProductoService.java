@@ -36,5 +36,8 @@ public class ProductoService {
                 .map(tipo::cast)
                 .toList();
     }
+    public List<Producto> listarProductosReales() {
+        return repo.findByDemoFalse();
+    }
 }
 

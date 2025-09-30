@@ -15,6 +15,16 @@ abstract public class Producto {
     private String descripcion;
     private BigDecimal precio;
     private Long stock;
+    private Boolean demo = false; // ✅ campo demo
+
+    public Boolean getDemo() {
+        return demo;
+    }
+
+    public void setDemo(Boolean demo) {
+        this.demo = demo;
+    }
+
 
     protected Producto() {
         // Constructor requerido por JPA
