@@ -86,17 +86,20 @@ public class PedidoController {
         return ResponseEntity.ok(dtos);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         pedidoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Pedido> actualizar(@PathVariable Long id, @RequestBody Pedido pedido) {
         Pedido actualizado = pedidoService.update(id, pedido);
         return ResponseEntity.ok(actualizado);
     }
+
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping("/carrito/agregar")
     public ResponseEntity<Void> agregarAlCarrito(@RequestBody PedidoItemRequestDto itemDto, HttpSession session) {
@@ -171,7 +174,6 @@ public class PedidoController {
             item.setPedido(pedido);
             items.add(item);
         }
-
         return items;
     }
 }

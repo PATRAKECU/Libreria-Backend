@@ -4,6 +4,7 @@ import com.ecommerce.libreriasaintpatrick.model.Cafe;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class CafeController {
     @Autowired
     private ProductoService service;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Cafe create(@RequestBody Cafe cafe) {
         return (Cafe) service.save(cafe);
@@ -32,6 +34,7 @@ public class CafeController {
         return (Cafe) service.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Cafe> updateCafe(@PathVariable Long id, @RequestBody Cafe cafeActualizado) {
         Cafe cafeExistente = (Cafe) service.findById(id);
@@ -51,6 +54,7 @@ public class CafeController {
         return ResponseEntity.ok(cafeGuardado);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCafe(@PathVariable Long id) {
         service.delete(id);

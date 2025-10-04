@@ -5,6 +5,7 @@ import com.ecommerce.libreriasaintpatrick.model.Separador;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class SeparadorController {
     @Autowired
     private ProductoService service;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Separador create(@RequestBody Separador separador) {
         return (Separador) service.save(separador);
@@ -33,6 +35,7 @@ public class SeparadorController {
         return (Separador) service.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Separador> updateSeparador(@PathVariable Long id, @RequestBody Separador separadorActualizado) {
         Separador separadorExistente = (Separador) service.findById(id);
@@ -51,6 +54,7 @@ public class SeparadorController {
         return ResponseEntity.ok(separadorGuardado);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSeparador(@PathVariable Long id) {
         service.delete(id);

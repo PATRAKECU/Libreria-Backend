@@ -5,6 +5,7 @@ import com.ecommerce.libreriasaintpatrick.model.Libro;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class LibroController {
     @Autowired
     private ProductoService service;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Libro create(@RequestBody Libro libro) {
         return (Libro) service.save(libro);
@@ -33,6 +35,7 @@ public class LibroController {
         return (Libro) service.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Libro> updateLibro(@PathVariable Long id, @RequestBody Libro libroActualizado) {
         Libro libroExistente = (Libro) service.findById(id);
@@ -53,6 +56,7 @@ public class LibroController {
         return ResponseEntity.ok(libroGuardado);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLibro(@PathVariable Long id) {
         service.delete(id);

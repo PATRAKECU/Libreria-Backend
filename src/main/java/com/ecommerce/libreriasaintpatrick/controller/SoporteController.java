@@ -5,6 +5,7 @@ import com.ecommerce.libreriasaintpatrick.model.Soporte;
 import com.ecommerce.libreriasaintpatrick.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class SoporteController {
     @Autowired
     private ProductoService service;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Soporte create(@RequestBody Soporte soporte) {
         return (Soporte) service.save(soporte);
@@ -33,6 +35,7 @@ public class SoporteController {
         return (Soporte) service.findById(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Soporte> updateSoporte(@PathVariable Long id, @RequestBody Soporte soporteActualizado) {
         Soporte soporteExistente = (Soporte) service.findById(id);
@@ -51,6 +54,7 @@ public class SoporteController {
         return ResponseEntity.ok(soporteGuardado);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSoporte(@PathVariable Long id) {
         service.delete(id);
