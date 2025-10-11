@@ -59,6 +59,28 @@ El backend sigue una arquitectura limpia y profesional basada en:
 - Cálculo del total del pedido y persistencia completa
 - Recarga del pedido recién creado para garantizar que los productos estén incluidos en la respuesta
 
+## 🤖 Chatbot Gemini
+Este proyecto incluye la integración de un chatbot inteligente basado en Gemini 2.5 Pro, un modelo de inteligencia artificial generativa multimodal capaz de producir contenido textual de alta calidad.
+🔧 Implementación técnica
+- El chatbot se conecta al modelo Gemini mediante Vertex AI usando la clase GeminiService.
+- Se utiliza WebClient en Spring Boot para enviar prompts estructurados y recibir respuestas en formato JSON.
+- El chatbot está expuesto mediante un endpoint REST (POST /api/chat) y se despliega en el frontend como un componente flotante en React.
+- La autenticación se gestiona mediante API Key, y se han validado errores comunes como 403 Forbidden, 429 Too Many Requests, y límites de cuota.
+- Se contempla la posibilidad de migrar a otras soluciones como Vertex AI con credenciales de servicio, según el entorno.
+
+## 🔐 Seguridad y confidencialidad
+Por motivos de seguridad, no se incluyen credenciales válidas en este repositorio.
+El usuario deberá configurar sus propias credenciales en el archivo application.properties:
+### Chatbot Gemini
+gemini.api.key=TU_API_KEY_AQUI
+gcloud.project.id=TU_PROJECT_ID
+
+### Conexion a MySQL
+spring.datasource.url=tu-url
+spring.datasource.username=tu-usuario
+spring.datasource.password=tu-clave
+jwt.secret=TuClaveSecreta1234
+
 
 ## 📦 Endpoints disponibles
 

@@ -1,5 +1,6 @@
 package com.ecommerce.libreriasaintpatrick.service;
 
+import com.ecommerce.libreriasaintpatrick.dto.producto.ProductoGeminiDto;
 import com.ecommerce.libreriasaintpatrick.model.Producto;
 import com.ecommerce.libreriasaintpatrick.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class ProductoService {
     }
     public List<Producto> listarProductosReales() {
         return repo.findByDemoFalse();
+    }
+
+    public List<ProductoGeminiDto> obtenerProductosParaGemini() {
+        return listarProductosReales().stream()
+                .map(ProductoGeminiDto::new)
+                .toList();
     }
 }
 
